@@ -9,7 +9,7 @@ bot = telebot.TeleBot("token")
 # Обработчик команды '/start' и '/hello'
 @bot.message_handler(commands=['start', 'hello'])
 def send_welcome(message):
-    bot.reply_to(message, f'Привет! Я просто бот! Вот доступные команды:/mem, /rickrol, /animals, /how are you, /heh')
+    bot.reply_to(message, f'Привет! Я просто бот! Вот доступные команды:/mem, /rickroll, /animals, /how are you, /heh, /cats, /dogs')
 
 # Обработчик команды '/heh'
 @bot.message_handler(commands=['heh'])
@@ -22,7 +22,7 @@ def send_heh(message):
 def send_welcome(message):
     bot.reply_to(message, 'https://youtu.be/Cxmvq1MCR3c?si=Ekv_xd7X6YW_6ulJ')
 
-bot.message_handler(commands=['how are you?'])
+@bot.message_handler(commands=['how are you'])
 def send_welcome(message):
     bot.reply_to(message, 'i am fine,thanks.')
 
@@ -40,6 +40,19 @@ def send_animals(message):
     with open(f'animals/{img_name}', 'rb') as f:
         bot.send_photo(message.chat.id, f)
 
+@bot.message_handler(commands=['cats'])
+def send_cats(message):
+    file_list = os.listdir("cats")
+    img_name = random.choice(file_list)
+    with open(f'cats/{img_name}', 'rb') as f:
+        bot.send_photo(message.chat.id, f)
+
+@bot.message_handler(commands=['dogs'])
+def send_cats(message):
+    file_list = os.listdir("dogs")
+    img_name = random.choice(file_list)
+    with open(f'dogs/{img_name}', 'rb') as f:
+        bot.send_photo(message.chat.id, f)
 
  
 @bot.message_handler(func=lambda message: True)
